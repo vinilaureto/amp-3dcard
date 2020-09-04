@@ -1,0 +1,90 @@
+<!doctype html>
+<html ⚡ lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="description" content="Simple experiment with AMP-script to do a 3D card">
+    <meta name="amp-script-src" content="sha384-sBjgPGxzlizn8iPY0xTmKClCPygdsHRM_QA0YkT1ffque1UtQXcT8jqb4diHOSXo" />
+    <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
+    <style amp-custom>
+        h1, p {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            color: rgb(44, 44, 44);
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        .space {
+            width: calc(100% - 30px);
+            height: 700px;
+            margin: 0 15px;
+            background-color: rgb(248, 237, 223);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            height: 375px;
+            width: 250px;
+            background-color: rgb(238, 238, 238);
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s ease-in;
+        }
+
+        .simbol {
+            width: 60px;
+            height: 60px;
+            background-color: rgb(192, 43, 43);
+            transform: rotate(45deg);
+        }
+
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <link rel="canonical" href=".">
+    <title>AMP 3D Card</title>
+  </head>
+  <body>
+    <h1>AMP 3D Card</h1>
+    <p>Touch or move the mouse arround the card</p>
+    <amp-script layout="fixed-height" height="700" script="cardApp">
+        <div id="space" class="space">
+            <div class="card" id="card">
+                <div class="simbol"></div>
+            </div>
+        </div>
+    </amp-script>
+
+    <script id="cardApp" type="text/plain" target="amp-script">
+        let space = document.getElementById('space');
+        let card = document.getElementById('card');
+        space.addEventListener("mousemove", mouseHover);
+
+        function mouseHover(e) {
+            let documentWidth = e['currentTarget']['45']['defaultView']['innerWidth']
+            let documentHeight = e['currentTarget']['45']['defaultView']['innerHeight']
+            let mouseX = e.offsetX
+            let mouseY = e.offsetY
+            const cardHeight = 375
+            const cardWidth = 250
+
+            if (mouseX > documentWidth * 0.5) {
+                card.style.transform = "rotate3d(0,1,0,18deg)"
+                card.style.boxShadow = "-9px 0px 10px rgba(0,0,0,0.75)"
+            } 
+
+            if (mouseX < documentWidth * 0.5) {
+                card.style.transform = "rotate3d(0,1,0,-18deg)"
+                card.style.boxShadow = "9px 0px 10px rgba(0,0,0,0.75)"
+            } 
+        }
+    </script>
+  </body>
+</html>
